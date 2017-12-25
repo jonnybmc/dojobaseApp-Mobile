@@ -1,0 +1,58 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{mode}} Student</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="studentForm" action="" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+          <ion-label floating>First Name</ion-label>
+          <ion-input type="text" formControlName="firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label floating>Last Name</ion-label>
+          <ion-input type="text" formControlName="lastName"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label floating>Gender</ion-label>
+          <ion-select formControlName="gender">
+            <ion-option *ngFor="let option of selectOptions" [value]="option">{{ option }}</ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label floating>Contact Number</ion-label>
+          <ion-input type="number" formControlName="contactNumber"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Date Of Birth</ion-label>
+        <ion-input type="text" formControlName="dateOfBirth"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Street Address</ion-label>
+        <ion-input type="text" formControlName="streetAddress"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>City</ion-label>
+        <ion-input type="text" formControlName="city"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Zip Code</ion-label>
+        <ion-input type="number" formControlName="zipCode"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Rank</ion-label>
+        <ion-input type="text" formControlName="rank"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button type="submit" ion-button block [disabled]="!studentForm.valid">{{mode}} Student</button>
+  </form>
+</ion-content>

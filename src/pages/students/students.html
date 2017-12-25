@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click) = "onNewStudent()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Students</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <!-- <ion-item *ngFor="let student of students">
+        <h1>{{student.firstName}} {{student.lastName}}</h1>
+        <h3>{{student.rank}}</h3>
+    </ion-item> -->
+
+      <button ion-item *ngFor="let student of students; let i = index" (click)="onLoadStudent(student,i)">
+        <ion-avatar item-start>
+            <img src="{{student.avatarSrc}}" alt="">
+        </ion-avatar>
+        <h2>{{student.firstName}}</h2>
+        <p>{{student.rank}}</p>
+      </button>
+  </ion-list>
+</ion-content>
+  

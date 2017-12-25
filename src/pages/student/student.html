@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ student?.firstName }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+        <ion-col>
+            <ion-avatar item-start>
+                <img src="{{student.avatarSrc}}" alt="">
+            </ion-avatar>
+            <h2>{{ student?.firstName }} {{student?.lastName }}</h2>
+            <h4>{{student?.rank }} </h4>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <p>Date of Birth</p>
+            <p>{{student?.dateOfBirth}}</p>
+        </ion-col>  
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 offset-7>
+        <button ion-button small outline (click)="onEditStudent()">Edit</button>
+        <button ion-button small outline color="danger" (click)="onDeleteStudent()">Delete</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
