@@ -5,7 +5,7 @@ import { OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { Student } from '../../models/student';
 import { FormControl } from '@angular/forms';
-import { StudentService } from '../../services/student.service';
+import {Camera, CameraOptions} from '@ionic-native/camera';
 
 @IonicPage()
 @Component({
@@ -18,7 +18,9 @@ export class StudentEditPage implements OnInit {
   studentForm : FormGroup;
   student : Student;
   id : number;
-  constructor(private navParams : NavParams, private studentService : StudentService, private navCtrl : NavController) {
+  public base64Image: string;
+
+  constructor(private navParams : NavParams, private studentService : StudentService, private navCtrl : NavController, private camera:Camera) {
 
   }
 
@@ -26,6 +28,7 @@ export class StudentEditPage implements OnInit {
       this.mode = this.navParams.get('mode');
       if (this.mode == 'Edit') {
         this.student = this.navParams.get('student');
+        console.log(this.student);
         
     }
 
@@ -71,27 +74,58 @@ export class StudentEditPage implements OnInit {
       });
   }
 
-  onSubmit() {
-    const student = new Student(
-      this.studentForm.value.firstName,
-      this.studentForm.value.lastName,
-      this.studentForm.value.gender,
-      this.studentForm.value.dateOfBirth,
-      this.studentForm.value.streetAddress,
-      this.studentForm.value.city,
-      this.studentForm.value.zipCode,
-      this.studentForm.value.rank,
-      this.studentForm.value.contactNumber,
-      this.studentForm.value.email
-    );
 
+  takePicture(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+     }, (err) => {
+     console.log(err);
+     });
+  }
+
+  onSubmit() {
     if (this.mode == 'Edit') {
-      this.studentService.updateStudent(this.student).subscribe(
+      const student = new Student(
+        this.studentForm.value.firstName,
+        this.studentForm.value.lastName,
+        this.studentForm.value.gender,
+        this.studentForm.value.dateOfBirth,
+        this.studentForm.value.streetAddress,
+        this.studentForm.value.city,
+        this.studentForm.value.zipCode,
+        this.studentForm.value.rank,
+        this.studentForm.value.contactNumber,
+        this.studentForm.value.email,
+        this.student.avatarSrc,
+        this.student.studentId,
+        this.student.createdBy,
+        this.student.createdById
+      );
+      this.studentService.updateStudent(student).subscribe(
         (student:Student) => {
           this.student = student;
+          console.log(this.student);
       }
       );
     } else {
+      const student = new Student(
+        this.studentForm.value.firstName,
+        this.studentForm.value.lastName,
+        this.studentForm.value.gender,
+        this.studentForm.value.dateOfBirth,
+        this.studentForm.value.streetAddress,
+        this.studentForm.value.city,
+        this.studentForm.value.zipCode,
+        this.studentForm.value.rank,
+        this.studentForm.value.contactNumber,
+        this.studentForm.value.email
+      );
       this.studentService.addStudent(student)
       .subscribe(
           data => console.log(data),

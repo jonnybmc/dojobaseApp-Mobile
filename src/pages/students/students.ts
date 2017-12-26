@@ -24,6 +24,14 @@ export class StudentsPage implements OnInit {
     }
     );
   }
+  ionViewDidEnter(){
+    this.studentService.getStudents()
+    .subscribe(
+      (students:Student[]) =>{
+        this.students = students;
+    }
+    );
+  }
 
   onNewStudent() {
     this.navCtrl.push(StudentEditPage,{

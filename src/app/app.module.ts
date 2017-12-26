@@ -1,3 +1,5 @@
+import { SignupPage } from './../pages/signup/signup';
+import { SigninPage } from './../pages/signin/signin';
 import { StudentEditPage } from './../pages/student-edit/student-edit';
 import { StudentPage } from './../pages/student/student';
 import { StudentsPage } from './../pages/students/students';
@@ -14,6 +16,8 @@ import { ShoppingListService } from '../services/dashboard.service';
 import { Camera } from '@ionic-native/camera';
 import { StudentService } from '../services/student.service';
 import { HttpModule } from '@angular/http';
+import { AuthService } from '../services/auth.service';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -23,10 +27,13 @@ import { HttpModule } from '@angular/http';
     StudentPage,
     DashboardPage,
     StudentEditPage,
+    SigninPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     HttpModule
   ],
   bootstrap: [IonicApp],
@@ -36,7 +43,9 @@ import { HttpModule } from '@angular/http';
     StudentsPage,
     StudentPage,
     DashboardPage,
-    StudentEditPage
+    StudentEditPage,
+    SigninPage,
+    SignupPage  
   ],
   providers: [
     StatusBar,
@@ -45,7 +54,8 @@ import { HttpModule } from '@angular/http';
     ShoppingListService,
     Camera,
     StudentService,
-    HttpModule
+    HttpModule,
+    AuthService
   ]
 })
 export class AppModule {}
